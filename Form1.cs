@@ -49,7 +49,7 @@ namespace L4_t_p
         //    //DrawnewTree(new Point(Width / 2 - 50, 100), root, Width / 2 - 200);
         //    return root;
         //}
-        
+
 
 
 
@@ -90,32 +90,53 @@ namespace L4_t_p
 
         private void SearchButton_Click(object sender, EventArgs e)
         {
-            var result = a.tree.Find((int)SearchNUD.Value);
- 
-
-            tree.Clear(this.BackColor);
-            buffered.Graphics.Clear(this.BackColor);
-            DrawnewTree(new Point(Width / 2 - 50, 100), a.tree, Width / 2 - 200);
-            buffered.Render(tree);
-
-
-            pen = new Pen(Color.Green, 3);
-            if (result != null)
+            if (a.tree != null)
             {
-                label1.Text = result.Value.ToString();
-                tree.DrawEllipse(pen, result.coords.X - 5, result.coords.Y - 5, 40, 40);
+
+                var result = a.tree.Find((int)SearchNUD.Value);
+
+
+                tree.Clear(this.BackColor);
+                buffered.Graphics.Clear(this.BackColor);
+                DrawnewTree(new Point(Width / 2 - 50, 100), a.tree, Width / 2 - 200);
+                buffered.Render(tree);
+
+
+                pen = new Pen(Color.Green, 3);
+                if (result != null)
+                {
+
+                    tree.DrawEllipse(pen, result.coords.X - 5, result.coords.Y - 5, 40, 40);
+                }
             }
         }
 
         private void CreateTreeBTN_Click(object sender, EventArgs e)
         {
-           // BNode b = a.rightRotate(a.tree);
-           a= new BTree();
+            // BNode b = a.rightRotate(a.tree);
+            a = new BTree();
             tree.Clear(this.BackColor);
             buffered.Graphics.Clear(this.BackColor);
             DrawnewTree(new Point(Width / 2 - 50, 100), a.tree, Width / 2 - 200);
             //buffered.Render();
             buffered.Render(tree);
+        }
+
+        private void DelBTN_Click(object sender, EventArgs e)
+        {
+            a.Del((int)SearchNUD.Value);
+            if (a.tree != null)
+            {
+
+                tree.Clear(this.BackColor);
+                buffered.Graphics.Clear(this.BackColor);
+                DrawnewTree(new Point(Width / 2 - 50, 100), a.tree, Width / 2 - 200);
+                buffered.Render(tree);
+            }
+            else {
+                tree.Clear(this.BackColor);
+                //buffered.Render(tree);
+            }
         }
     }
 }

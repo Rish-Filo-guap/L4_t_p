@@ -30,8 +30,8 @@
         {
             SearchNUD = new NumericUpDown();
             SearchButton = new Button();
-            label1 = new Label();
             CreateTreeBTN = new Button();
+            DelBTN = new Button();
             ((System.ComponentModel.ISupportInitialize)SearchNUD).BeginInit();
             SuspendLayout();
             // 
@@ -53,15 +53,6 @@
             SearchButton.UseVisualStyleBackColor = true;
             SearchButton.Click += SearchButton_Click;
             // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(297, 572);
-            label1.Name = "label1";
-            label1.Size = new Size(50, 20);
-            label1.TabIndex = 3;
-            label1.Text = "label1";
-            // 
             // CreateTreeBTN
             // 
             CreateTreeBTN.Location = new Point(700, 568);
@@ -73,13 +64,24 @@
             CreateTreeBTN.UseVisualStyleBackColor = true;
             CreateTreeBTN.Click += CreateTreeBTN_Click;
             // 
+            // DelBTN
+            // 
+            DelBTN.Location = new Point(295, 569);
+            DelBTN.Margin = new Padding(2);
+            DelBTN.Name = "DelBTN";
+            DelBTN.Size = new Size(87, 27);
+            DelBTN.TabIndex = 5;
+            DelBTN.Text = "Удалить";
+            DelBTN.UseVisualStyleBackColor = true;
+            DelBTN.Click += DelBTN_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(960, 656);
+            Controls.Add(DelBTN);
             Controls.Add(CreateTreeBTN);
-            Controls.Add(label1);
             Controls.Add(SearchButton);
             Controls.Add(SearchNUD);
             Margin = new Padding(2);
@@ -88,13 +90,12 @@
             Shown += Form1_Shown;
             ((System.ComponentModel.ISupportInitialize)SearchNUD).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
         private NumericUpDown SearchNUD;
         private Button SearchButton;
-        private Label label1;
         private Button CreateTreeBTN;
+        private Button DelBTN;
     }
 }

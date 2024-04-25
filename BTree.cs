@@ -30,11 +30,31 @@ namespace L4_t_p
                 }
             return null;
 
-        } 
-        
+        }
+        public BNode? FindParent(int value, BNode bNode)
+        {
+            if (Value == value)
+            {
+                return bNode;
+            }
+
+            if (value > Value && right != null)
+            {
+                return right.FindParent(value, this);
+            }
+
+            if (value < Value && left != null)
+            {
+                return left.FindParent(value, this);
+            }
+            return null;
+
+        }
+
     }
     public class BTree {
         public BNode? tree;
+
         public BTree() {
             Random rnd = new Random();
             int[] sequence = new int[rnd.Next(3, 22)];
@@ -57,8 +77,34 @@ namespace L4_t_p
                 tree = Insert(tree, value);
             }
         }
+        public void Del(int value) {
+            if (tree != null)
+            {
+
+                if (tree != null && tree.Value == value)
+                {
+                    tree = null;
+                    return;
+                }
+                var delited = tree.FindParent(value, tree);
+                if (delited == null) return;
+                if (delited.left != null && delited.left.Value == value)
+                {
+                    delited.left = null;
+                    return;
+                }
+                if (delited.right != null)
+                {
+                    delited.right = null;
+                    return;
+                }
+                
+            } else return;
+
+        }
         public BNode Insert(BNode? root, int value)
         {
+
             if (root == null)
             {
                 return new BNode(value);
