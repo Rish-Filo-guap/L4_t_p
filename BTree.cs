@@ -54,52 +54,72 @@ namespace L4_t_p
     }
     public class BTree {
         public BNode? tree;
-
+        private List<int> sequence;
         public BTree() {
             Random rnd = new Random();
-            int[] sequence = new int[rnd.Next(3, 22)];
+            int cnt = rnd.Next(3, 22);
+            sequence = new List<int>();
             int k = 0;
-            while (k < sequence.Length) {
+            while (k < cnt) {
                 var n = rnd.Next(1, 100);
                 if (!sequence.Contains(n)) {
 
-                    sequence[k] = n;
+                    sequence.Add(n);
                     k++;
                 }
                 
             }
-            
+            BuildTree();
 
+        }
+        public void BuildTree() { 
             // Строим сбалансированное бинарное дерево
             //BNode root = null;
             foreach (int value in sequence)
             {
                 tree = Insert(tree, value);
             }
+        
         }
-        public void Del(int value) {
+        public bool AddValue(int value) {
+            if (!sequence.Contains(value)) { 
+            
+            sequence.Add(value);
+            sequence.Sort();
+            tree = null;
+            BuildTree();
+                return true;
+            }else return false;
+            
+        }
+        public bool Del(int value) {
+            if (sequence.Contains(value))
+            {
+                sequence.Remove(value);
+            }else return false;
+
             if (tree != null)
             {
 
                 if (tree != null && tree.Value == value)
                 {
                     tree = null;
-                    return;
+                    return true;
                 }
                 var delited = tree.FindParent(value, tree);
-                if (delited == null) return;
+                if (delited == null) return false;
                 if (delited.left != null && delited.left.Value == value)
                 {
                     delited.left = null;
-                    return;
+                    return true;
                 }
                 if (delited.right != null)
                 {
                     delited.right = null;
-                    return;
-                }
+                    return true;
+                }else return false;
                 
-            } else return;
+            } else return false;
 
         }
         public BNode Insert(BNode? root, int value)

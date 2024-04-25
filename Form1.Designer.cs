@@ -32,12 +32,15 @@
             SearchButton = new Button();
             CreateTreeBTN = new Button();
             DelBTN = new Button();
+            AddBTN = new Button();
+            InfoLBL = new Label();
             ((System.ComponentModel.ISupportInitialize)SearchNUD).BeginInit();
             SuspendLayout();
             // 
             // SearchNUD
             // 
             SearchNUD.Location = new Point(402, 569);
+            SearchNUD.Maximum = new decimal(new int[] { 99, 0, 0, 0 });
             SearchNUD.Name = "SearchNUD";
             SearchNUD.Size = new Size(150, 27);
             SearchNUD.TabIndex = 1;
@@ -75,11 +78,33 @@
             DelBTN.UseVisualStyleBackColor = true;
             DelBTN.Click += DelBTN_Click;
             // 
+            // AddBTN
+            // 
+            AddBTN.Location = new Point(425, 601);
+            AddBTN.Margin = new Padding(2);
+            AddBTN.Name = "AddBTN";
+            AddBTN.Size = new Size(87, 27);
+            AddBTN.TabIndex = 6;
+            AddBTN.Text = "Добавить";
+            AddBTN.UseVisualStyleBackColor = true;
+            AddBTN.Click += AddBTN_Click;
+            // 
+            // InfoLBL
+            // 
+            InfoLBL.AutoSize = true;
+            InfoLBL.Location = new Point(417, 528);
+            InfoLBL.Name = "InfoLBL";
+            InfoLBL.Size = new Size(95, 20);
+            InfoLBL.TabIndex = 7;
+            InfoLBL.Text = "пока ничего";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(960, 656);
+            Controls.Add(InfoLBL);
+            Controls.Add(AddBTN);
             Controls.Add(DelBTN);
             Controls.Add(CreateTreeBTN);
             Controls.Add(SearchButton);
@@ -90,6 +115,7 @@
             Shown += Form1_Shown;
             ((System.ComponentModel.ISupportInitialize)SearchNUD).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -97,5 +123,7 @@
         private Button SearchButton;
         private Button CreateTreeBTN;
         private Button DelBTN;
+        private Button AddBTN;
+        private Label InfoLBL;
     }
 }

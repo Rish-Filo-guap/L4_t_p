@@ -13,8 +13,6 @@ namespace L4_t_p
     public partial class Form1 : Form
     {
         Graphics tree;
-        List<int> arr;
-        int[] levels;
         BTree a;
         Pen pen;
         int scale = 40;
@@ -28,30 +26,7 @@ namespace L4_t_p
             currentContext = BufferedGraphicsManager.Current;
             buffered = currentContext.Allocate(this.CreateGraphics(), this.DisplayRectangle);
         }
-        //public BNode aq()
-        //{
-        //    // √енерируем случайную числовую последовательность
-        //    Random rnd = new Random();
-        //    int[] sequence = new int[rnd.Next(3, 22)];
-        //    for (int i = 0; i < sequence.Length; i++)
-        //    {
-        //        sequence[i] = rnd.Next(1, 100);
-        //    }
-
-        //    // —троим сбалансированное бинарное дерево
-        //    BNode root = null;
-        //    foreach (int value in sequence)
-        //    {
-        //        root = Insert(root, value);
-        //    }
-
-
-        //    //DrawnewTree(new Point(Width / 2 - 50, 100), root, Width / 2 - 200);
-        //    return root;
-        //}
-
-
-
+        
 
         public void DrawnewTree(Point precoord, BNode bTree, int range)
         {
@@ -105,8 +80,11 @@ namespace L4_t_p
                 pen = new Pen(Color.Green, 3);
                 if (result != null)
                 {
-
+                    InfoLBL.Text = "найдено успешно";
                     tree.DrawEllipse(pen, result.coords.X - 5, result.coords.Y - 5, 40, 40);
+                }
+                else {
+                    InfoLBL.Text = "не получилось найти";
                 }
             }
         }
@@ -124,7 +102,14 @@ namespace L4_t_p
 
         private void DelBTN_Click(object sender, EventArgs e)
         {
-            a.Del((int)SearchNUD.Value);
+            if (a.Del((int)SearchNUD.Value)) {
+                InfoLBL.Text = "”далено успешно";
+            }
+            else
+            {
+                InfoLBL.Text = "”даление не получилось";
+
+            }
             if (a.tree != null)
             {
 
@@ -133,10 +118,27 @@ namespace L4_t_p
                 DrawnewTree(new Point(Width / 2 - 50, 100), a.tree, Width / 2 - 200);
                 buffered.Render(tree);
             }
-            else {
+            else
+            {
                 tree.Clear(this.BackColor);
                 //buffered.Render(tree);
             }
+        }
+
+        private void AddBTN_Click(object sender, EventArgs e)
+        {
+            if (a.AddValue((int)SearchNUD.Value))
+            {
+                InfoLBL.Text = "добавлено успешно";
+            }
+            else
+            {
+                InfoLBL.Text = "не получилось добавить";
+            }
+            tree.Clear(this.BackColor);
+            buffered.Graphics.Clear(this.BackColor);
+            DrawnewTree(new Point(Width / 2 - 50, 100), a.tree, Width / 2 - 200);
+            buffered.Render(tree);
         }
     }
 }
