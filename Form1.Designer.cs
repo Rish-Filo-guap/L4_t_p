@@ -31,6 +31,7 @@
             SearchNUD = new NumericUpDown();
             SearchButton = new Button();
             label1 = new Label();
+            CreateTreeBTN = new Button();
             ((System.ComponentModel.ISupportInitialize)SearchNUD).BeginInit();
             SuspendLayout();
             // 
@@ -61,11 +62,23 @@
             label1.TabIndex = 3;
             label1.Text = "label1";
             // 
+            // CreateTreeBTN
+            // 
+            CreateTreeBTN.Location = new Point(700, 568);
+            CreateTreeBTN.Margin = new Padding(2);
+            CreateTreeBTN.Name = "CreateTreeBTN";
+            CreateTreeBTN.Size = new Size(103, 27);
+            CreateTreeBTN.TabIndex = 4;
+            CreateTreeBTN.Text = "Построить";
+            CreateTreeBTN.UseVisualStyleBackColor = true;
+            CreateTreeBTN.Click += CreateTreeBTN_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(960, 656);
+            Controls.Add(CreateTreeBTN);
             Controls.Add(label1);
             Controls.Add(SearchButton);
             Controls.Add(SearchNUD);
@@ -82,5 +95,6 @@
         private NumericUpDown SearchNUD;
         private Button SearchButton;
         private Label label1;
+        private Button CreateTreeBTN;
     }
 }
