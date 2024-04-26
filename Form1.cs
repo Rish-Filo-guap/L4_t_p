@@ -28,7 +28,7 @@ namespace L4_t_p
         }
         
 
-        public void DrawnewTree(Point precoord, BNode bTree, int range)
+        public void DrawnewTree(Point precoord, BNode bTree, int range)//нарисовать дерева
         {
 
             pen = new Pen(Color.Black, 3);
@@ -63,7 +63,7 @@ namespace L4_t_p
             buffered.Render(tree);
         }
 
-        private void SearchButton_Click(object sender, EventArgs e)
+        private void SearchButton_Click(object sender, EventArgs e)//обраблтка нажатия кнопки поиска
         {
             if (a.tree != null)
             {
@@ -89,18 +89,16 @@ namespace L4_t_p
             }
         }
 
-        private void CreateTreeBTN_Click(object sender, EventArgs e)
+        private void CreateTreeBTN_Click(object sender, EventArgs e)//обработка нажатия на кнопку для постройки нового дерева
         {
-            // BNode b = a.rightRotate(a.tree);
             a = new BTree();
             tree.Clear(this.BackColor);
             buffered.Graphics.Clear(this.BackColor);
             DrawnewTree(new Point(Width / 2 - 50, 100), a.tree, Width / 2 - 200);
-            //buffered.Render();
             buffered.Render(tree);
         }
 
-        private void DelBTN_Click(object sender, EventArgs e)
+        private void DelBTN_Click(object sender, EventArgs e)//обработка кнопки удаления вершины
         {
             if (a.Del((int)SearchNUD.Value)) {
                 InfoLBL.Text = "Удалено успешно";
@@ -121,11 +119,10 @@ namespace L4_t_p
             else
             {
                 tree.Clear(this.BackColor);
-                //buffered.Render(tree);
             }
         }
 
-        private void AddBTN_Click(object sender, EventArgs e)
+        private void AddBTN_Click(object sender, EventArgs e)//кнопка добавления новой вершины
         {
             if (a.AddValue((int)SearchNUD.Value))
             {

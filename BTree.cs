@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace L4_t_p
 {
-    public class BNode
+    public class BNode//класс корня
     {
         public int Value { get; set; }
         public BNode left;
@@ -16,7 +16,7 @@ namespace L4_t_p
         public BNode(int value) { 
          Value = value;
         }
-        public BNode? Find(int value) { 
+        public BNode? Find(int value) { //найти корень по значению
             if (Value == value) {
                 return this;
             }
@@ -31,7 +31,8 @@ namespace L4_t_p
             return null;
 
         }
-        public BNode? FindParent(int value, BNode bNode)
+
+        public BNode? FindParent(int value, BNode bNode)//найти родителя корня 
         {
             if (Value == value)
             {
@@ -52,9 +53,9 @@ namespace L4_t_p
         }
 
     }
-    public class BTree {
-        public BNode? tree;
-        private List<int> sequence;
+    public class BTree {//класс дерева
+        public BNode? tree;//главный корень дерева
+        private List<int> sequence;//список значений корней
         public BTree() {
             Random rnd = new Random();
             int cnt = rnd.Next(3, 22);
@@ -72,57 +73,39 @@ namespace L4_t_p
             BuildTree();
 
         }
-        public void BuildTree() { 
-            // Строим сбалансированное бинарное дерево
-            //BNode root = null;
+        public void BuildTree() { //построить дерево
+
             foreach (int value in sequence)
             {
                 tree = Insert(tree, value);
             }
         
         }
-        public bool AddValue(int value) {
-            if (!sequence.Contains(value)) { 
-            
-            sequence.Add(value);
-            sequence.Sort();
-            tree = null;
-            BuildTree();
+        public bool AddValue(int value) {//добавить корень
+            if (tree == null || tree.Find(value)==null) {
+                tree = Insert(tree, value);
+                sequence.Add(value);
                 return true;
             }else return false;
             
         }
-        public bool Del(int value) {
-            if (sequence.Contains(value))
-            {
-                sequence.Remove(value);
-            }else return false;
-
+        
+        public bool Del(int value) {//удалить выбранную вершину
             if (tree != null)
             {
-
-                if (tree != null && tree.Value == value)
+               if (sequence.Contains(value))
                 {
+                    sequence.Remove(value);
                     tree = null;
+                    BuildTree();
                     return true;
                 }
-                var delited = tree.FindParent(value, tree);
-                if (delited == null) return false;
-                if (delited.left != null && delited.left.Value == value)
-                {
-                    delited.left = null;
-                    return true;
-                }
-                if (delited.right != null)
-                {
-                    delited.right = null;
-                    return true;
-                }else return false;
-                
+               else return false;
+
             } else return false;
 
         }
-        public BNode Insert(BNode? root, int value)
+        public BNode Insert(BNode? root, int value)//вставить корень в дерево
         {
 
             if (root == null)
@@ -139,7 +122,9 @@ namespace L4_t_p
                 root.right = Insert(root.right, value);
             }
 
-            // Балансируем дерево после вставки
+            return Balance(root); 
+        }
+        public BNode Balance(BNode root) {//сбалансировать дерево после вставки значения
             int balanceFactor = GetBalanceFactor(root);
             if (balanceFactor > 1)
             {
@@ -160,9 +145,8 @@ namespace L4_t_p
 
             return root;
         }
-
-        // Вычисление фактора баланса узла
-        public int GetBalanceFactor(BNode node)
+        
+        public int GetBalanceFactor(BNode node) // вычисление фактора баланса узла
         {
             if (node == null)
             {
@@ -172,8 +156,8 @@ namespace L4_t_p
             return GetHeight(node.left) - GetHeight(node.right);
         }
 
-        // Вычисление высоты дерева
-        public int GetHeight(BNode node)
+        
+        public int GetHeight(BNode node) // вычисление высоты дерева
         {
             if (node == null)
             {
@@ -183,8 +167,8 @@ namespace L4_t_p
             return 1 + Math.Max(GetHeight(node.left), GetHeight(node.right));
         }
 
-        // Левый поворот
-        public BNode leftRotate(BNode node)
+        
+        public BNode leftRotate(BNode node)// Левый поворот
         {
             BNode newRoot = node.right;
             node.right = newRoot.left;
@@ -193,8 +177,8 @@ namespace L4_t_p
             return newRoot;
         }
 
-        // Правый поворот
-        public BNode rightRotate(BNode node)
+        
+        public BNode rightRotate(BNode node)// Правый поворот
         {
             BNode newRoot = node.left;
             node.left = newRoot.right;
